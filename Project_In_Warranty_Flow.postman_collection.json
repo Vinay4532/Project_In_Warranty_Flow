@@ -1,0 +1,901 @@
+{
+  "info": {
+    "_postman_id": "ebcf77de-3ffe-4040-a775-efda84dc75f2",
+    "name": "Project_In_Warranty_Flow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14992887",
+    "_collection_link": "https://go.postman.co/collection/14992887-ebcf77de-3ffe-4040-a775-efda84dc75f2?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "FD_Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsondata = pm.response.json();\r",
+              "const token = jsondata.data.token;\r",
+              "const schema ={\r",
+              "  \"type\": \"object\",\r",
+              "  \"properties\": {\r",
+              "    \"message\": {\r",
+              "      \"type\": \"string\"\r",
+              "    },\r",
+              "    \"data\": {\r",
+              "      \"type\": \"object\",\r",
+              "      \"properties\": {\r",
+              "        \"token\": {\r",
+              "          \"type\": \"string\"\r",
+              "        }\r",
+              "      },\r",
+              "      \"required\": [\r",
+              "        \"token\"\r",
+              "      ]\r",
+              "    }\r",
+              "  },\r",
+              "  \"required\": [\r",
+              "    \"message\",\r",
+              "    \"data\"\r",
+              "  ]\r",
+              "}\r",
+              "pm.collectionVariables.set(\"token\", token);\r",
+              "pm.test(\"- Status code should be 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "\r",
+              "})\r",
+              "pm.test(\"-Message should be 'Success'\", function () {\r",
+              "    pm.expect(jsondata.message).to.eql(\"Success\")\r",
+              "    \r",
+              "\r",
+              "})\r",
+              "pm.test(\"Token should be a valid JWT (3 parts)\", function () {\r",
+              "    pm.expect(token.split('.').length).to.eql(3)\r",
+              "    \r",
+              "    \r",
+              "\r",
+              "})\r",
+              "pm.test(\"Validate JSON Schema for Response\", function () {\r",
+              "   pm.response.to.have.jsonSchema(schema)\r",
+              "    \r",
+              "    \r",
+              "\r",
+              "})\r",
+              "pm.test(\"Response time should be under 150 ms\", function () {\r",
+              "   pm.expect(pm.response.responseTime).to.be.below(150)\r",
+              "    \r",
+              "    \r",
+              "\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3Njk3MDk5MjN9.vnHWCB4z74_bH0kW1xEtLwPMHlaAqNlsKbC-zhpRUzg"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\":\"iamfd\",\"password\":\"password\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/login",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "login"
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/login' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3Njk3MDk5MjN9.vnHWCB4z74_bH0kW1xEtLwPMHlaAqNlsKbC-zhpRUzg' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --data-raw '{\"username\":\"iamfd\",\"password\":\"password\"}' \\\r\n  --insecure"
+      },
+      "response": []
+    },
+    {
+      "name": "User_Details",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsondata =pm.response.json();\r",
+              "const schema = {\r",
+              "  \"type\": \"object\",\r",
+              "  \"properties\": {\r",
+              "    \"message\": {\r",
+              "      \"type\": \"string\"\r",
+              "    },\r",
+              "    \"data\": {\r",
+              "      \"type\": \"object\",\r",
+              "      \"properties\": {\r",
+              "        \"id\": {\r",
+              "          \"type\": \"integer\"\r",
+              "        },\r",
+              "        \"first_name\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"last_name\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"login_id\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"mobile_number\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"email_id\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"password\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"reset_password_date\": {\r",
+              "          \"type\": \"null\"\r",
+              "        },\r",
+              "        \"lock_status\": {\r",
+              "          \"type\": \"integer\"\r",
+              "        },\r",
+              "        \"is_active\": {\r",
+              "          \"type\": \"integer\"\r",
+              "        },\r",
+              "        \"mst_role_id\": {\r",
+              "          \"type\": \"integer\"\r",
+              "        },\r",
+              "        \"mst_service_location_id\": {\r",
+              "          \"type\": \"integer\"\r",
+              "        },\r",
+              "        \"created_at\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"modified_at\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"role_name\": {\r",
+              "          \"type\": \"string\"\r",
+              "        },\r",
+              "        \"service_location\": {\r",
+              "          \"type\": \"string\"\r",
+              "        }\r",
+              "      },\r",
+              "      \"required\": [\r",
+              "        \"id\",\r",
+              "        \"first_name\",\r",
+              "        \"last_name\",\r",
+              "        \"login_id\",\r",
+              "        \"mobile_number\",\r",
+              "        \"email_id\",\r",
+              "        \"password\",\r",
+              "        \"reset_password_date\",\r",
+              "        \"lock_status\",\r",
+              "        \"is_active\",\r",
+              "        \"mst_role_id\",\r",
+              "        \"mst_service_location_id\",\r",
+              "        \"created_at\",\r",
+              "        \"modified_at\",\r",
+              "        \"role_name\",\r",
+              "        \"service_location\"\r",
+              "      ]\r",
+              "    }\r",
+              "  },\r",
+              "  \"required\": [\r",
+              "    \"message\",\r",
+              "    \"data\"\r",
+              "  ]\r",
+              "}\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "\r",
+              "    pm.response.to.have.status(200);\r",
+              "})\r",
+              "\r",
+              "pm.test(\" User data should be present in response\", function () {\r",
+              "\r",
+              "   console.log(jsondata.data)\r",
+              "})\r",
+              "pm.test(\"  Check for response time\", function () {\r",
+              "\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(150); // 2 seconds timeout\r",
+              "})\r",
+              "pm.test(\" JSON SCHEMA\", function () {\r",
+              "\r",
+              "    pm.response.to.have.jsonSchema(schema);\r",
+              "})\r",
+              "var expectedkeys=[\"id\",\"first_name\",\"last_name\",\"login_id\",\"mobile_number\",\"email_id\",\"password\",\"reset_password_date\",\"lock_status\",\"is_active\",\"mst_role_id\",\"mst_service_location_id\",\"created_at\",\"modified_at\",\"role_name\",\"service_location\" ]\r",
+              "expectedkeys.forEach(function(item)\r",
+              "{\r",
+              "    pm.test(\"Check for \"+item, function () {\r",
+              "        pm.expect(jsondata.data).to.have.property(item);\r",
+              "\r",
+              "\r",
+              "})\r",
+              "})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/userdetails",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "userdetails"
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/userdetails' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --insecure"
+      },
+      "response": []
+    },
+    {
+      "name": "FD_Count",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsondata =pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "\r",
+              "    pm.response.to.have.status(200);\r",
+              "})\r",
+              "var expectedkeys=[\"label\",\"key\",\"count\"]\r",
+              "expectedkeys.forEach(function(item)\r",
+              "{\r",
+              "    pm.test(\"Check if \" + item + \" is present in response and also values should match\", function ()\r",
+              "    {\r",
+              "        pm.expect(jsondata.data[0]).to.have.property(item);\r",
+              "        pm.expect(jsondata.data[0].label).to.eql(\"Pending for delivery\")\r",
+              "    })\r",
+              "}\r",
+              "\r",
+              ")\r",
+              "jsondata.data.forEach(function(obj,index)\r",
+              "{\r",
+              "pm.test(\"- Count values must be numbers [Type Check]\", function ()\r",
+              "{\r",
+              "pm.expect(obj.count).to.be.a('number');\r",
+              "})\r",
+              "})\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/dashboard/count",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "dashboard",
+            "count"
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/dashboard/count' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --insecure"
+      },
+      "response": []
+    },
+    {
+      "name": "Details_FD",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"details_key\":\"created_today\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/dashboard/details",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "dashboard",
+            "details"
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/dashboard/details' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --data-raw '{\"details_key\":\"created_today\"}' \\\r\n  --insecure"
+      },
+      "response": []
+    },
+    {
+      "name": "FD_Master",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsondata=pm.response.json();\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "pm.response.to.have.status(200)\r",
+              "})\r",
+              "var expectedKeys = [\r",
+              "  \"mst_oem\",\r",
+              "  \"mst_model\",\r",
+              "  \"mst_action_status\",\r",
+              "  \"mst_warrenty_status\",\r",
+              "  \"mst_platform\",\r",
+              "  \"mst_product\",\r",
+              "  \"mst_role\",\r",
+              "  \"mst_service_location\",\r",
+              "  \"mst_problem\",\r",
+              "  \"map_fst_pincode\"\r",
+              "];\r",
+              "\r",
+              "expectedKeys.forEach(function(item)\r",
+              "{\r",
+              "    pm.test(\"Response contains key: \" + item, function () {\r",
+              "        pm.expect(jsondata.data).to.have.property(item)\r",
+              "    })\r",
+              "})\r",
+              "\r",
+              "expectedKeys.forEach(function(item)\r",
+              "{\r",
+              "    pm.test(\"Response contains key: \" + item, function () {\r",
+              "        pm.expect(Array.isArray(jsondata.data[item])).to.be.true\r",
+              "         pm.expect(jsondata.data[item].length).to.be.greaterThan(0)\r",
+              "    })\r",
+              "})\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Content-Length",
+            "value": "0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "text/plain"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/master",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "master"
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/master' \\\r\n  -X 'POST' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Content-Length: 0' \\\r\n  -H 'Content-Type: text/plain' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --insecure"
+      },
+      "response": []
+    },
+    {
+      "name": "FD_Input",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/place/auto?input=dfdfdf",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "place",
+            "auto"
+          ],
+          "query": [
+            {
+              "key": "input",
+              "value": "dfdfdf"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/place/auto?input=dfdfdf' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --insecure"
+      },
+      "response": []
+    },
+    {
+      "name": "Create_Job",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const random = Math.random();\r",
+              "const imei1=Math.floor(random*1000000000000+10000000000000)\r",
+              "pm.collectionVariables.set(\"imei1\",imei1)"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"mst_service_location_id\":0,\"mst_platform_id\":2,\"mst_warrenty_status_id\":1,\"mst_oem_id\":1,\"customer\":{\"first_name\":\"vinat\",\"last_name\":\"sdsd\",\"mobile_number\":\"8575949404\",\"mobile_number_alt\":\"\",\"email_id\":\"ggg@gmail.com\",\"email_id_alt\":\"\"},\"customer_address\":{\"flat_number\":\"24\",\"apartment_name\":\"rrrr\",\"street_name\":\"dfdf\",\"landmark\":\"dfdfdf\",\"area\":\"ss\",\"pincode\":\"566678\",\"country\":\"India\",\"state\":\"Karnataka\"},\"customer_product\":{\"dop\":\"2026-02-07T18:30:00.000Z\",\"serial_number\":\"12345678903457\",\"imei1\":\"{{imei1}}\",\"imei2\":\"{{imei1}}\",\"popurl\":\"2026-02-07T18:30:00.000Z\",\"product_id\":1,\"mst_model_id\":1},\"problems\":[{\"id\":2,\"remark\":\"batteer is low\"}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/job/create",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "job",
+            "create"
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/job/create' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --data-raw '{\"mst_service_location_id\":0,\"mst_platform_id\":2,\"mst_warrenty_status_id\":1,\"mst_oem_id\":1,\"customer\":{\"first_name\":\"vinat\",\"last_name\":\"sdsd\",\"mobile_number\":\"8575949404\",\"mobile_number_alt\":\"\",\"email_id\":\"ggg@gmail.com\",\"email_id_alt\":\"\"},\"customer_address\":{\"flat_number\":\"24\",\"apartment_name\":\"rrrr\",\"street_name\":\"dfdf\",\"landmark\":\"dfdfdf\",\"area\":\"ss\",\"pincode\":\"566678\",\"country\":\"India\",\"state\":\"Karnataka\"},\"customer_product\":{\"dop\":\"2026-02-07T18:30:00.000Z\",\"serial_number\":\"12345678903457\",\"imei1\":\"12345678903457\",\"imei2\":\"12345678903457\",\"popurl\":\"2026-02-07T18:30:00.000Z\",\"product_id\":1,\"mst_model_id\":1},\"problems\":[{\"id\":2,\"remark\":\"batteer is low\"}]}' \\\r\n  --insecure"
+      },
+      "response": []
+    },
+    {
+      "name": "After_Creating_FD",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json, text/plain, */*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4"
+          },
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Origin",
+            "value": "http://phoenix.techwithjatin.com"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Referer",
+            "value": "http://phoenix.techwithjatin.com/"
+          },
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36"
+          }
+        ],
+        "url": {
+          "raw": "http://64.227.160.186:9000/v1/place/auto?input=",
+          "protocol": "http",
+          "host": [
+            "64",
+            "227",
+            "160",
+            "186"
+          ],
+          "port": "9000",
+          "path": [
+            "v1",
+            "place",
+            "auto"
+          ],
+          "query": [
+            {
+              "key": "input",
+              "value": ""
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl 'http://64.227.160.186:9000/v1/place/auto?input=' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,kn;q=0.6,ja;q=0.5,hi;q=0.4' \\\r\n  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE3NzA1NDY2NzN9.1vs5-sIGE5pbg54TCsubsnDmYITBQ43flchpms6FnhU' \\\r\n  -H 'Cache-Control: no-cache' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Origin: http://phoenix.techwithjatin.com' \\\r\n  -H 'Pragma: no-cache' \\\r\n  -H 'Referer: http://phoenix.techwithjatin.com/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36' \\\r\n  --insecure"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "imei1",
+      "value": ""
+    }
+  ]
+}
