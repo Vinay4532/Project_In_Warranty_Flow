@@ -1,0 +1,48 @@
+name: Postman-collection
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 6 * * *"   # Runs daily at 6 AM UTC (11:30 AM IST)
+
+jobs:
+  run-postman:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-htmlextra
+
+     
+      - name: List project files
+        run: ls -la
+
+     
+      - name: Run Postman Collection
+        run: |
+          newman run Project_In_Warranty_Flow.postman_collection.json \
+          
+          -r htmlextra
+
+      
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: newman-report
+          path: newman/
