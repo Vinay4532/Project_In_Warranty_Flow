@@ -29,9 +29,7 @@ jobs:
         run: ls -la
 
       - name: Run Postman Collection
-        run: |
-          newman run Project_In_Warranty_Flow.postman_collection.json \
-          -r htmlextra
+        run: newman run Project_In_Warranty_Flow.postman_collection.json -r htmlextra
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
